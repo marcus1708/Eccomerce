@@ -30,6 +30,7 @@ Este é um projeto de e-commerce desenvolvido em **React + TypeScript** utilizan
 ```bash
 git clone https://github.com/marcus1708/Ecommerce.git
 cd Ecommerce
+```bash
 
 2. **Rode o comando:**
 
