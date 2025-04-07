@@ -1,32 +1,90 @@
-# 🛒 Ecommerce Serverest
+# E-commerce React com Serverest API
 
-Este é um projeto de e-commerce desenvolvido em **React + TypeScript** utilizando a **API do [Serverest](https://serverest.dev/)**. A aplicação permite:
+Este é um projeto de e-commerce construído com **React**, **TypeScript**, **TailwindCSS** e **ShadCN/UI**, utilizando a API [Serverest](https://serverest.dev/) para simular funcionalidades de um backend.
 
-- ✅ Login de usuários
-- ✅ Cadastro de novos usuários
-- ✅ Cadastro e listagem de produtos
-- ✅ Adição de produtos ao carrinho
-- ✅ Tela de pagamento com cartão de crédito/débito
-- ✅ Proteção de rotas com autenticação
-- ✅ Mensagens pop-up de sucesso ou erro
-- ✅ Interface moderna com TailwindCSS
+## Funcionalidades
+
+- Cadastro e login de usuários
+- Listagem de produtos com busca por nome
+- Cadastro e edição de produtos
+- Adição de produtos ao carrinho
+- Tela de carrinho com opção de finalizar ou cancelar compra
+- Tela de pagamento com validação de data (mês/ano) e animação de sucesso
+- Design responsivo e moderno
+
+## Tecnologias Utilizadas
+
+- React + Vite
+- TypeScript
+- TailwindCSS
+- Axios
+- React Router DOM
+- ShadCN/UI
+- Lucide React (ícones)
+- Framer Motion (animações)
+- Radix UI Tooltip
+
+## Instalação
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/seu-repositorio.git
+   cd seu-repositorio
+   ```
+
+2. Instale as dependências:
+   ```bash
+   npm install
+   ```
+
+   ou
+
+   ```bash
+   yarn
+   ```
+
+3. Execute o projeto:
+   ```bash
+   npm run dev
+   ```
+
+## Estrutura de Pastas
+
+```
+src/
+├── components/
+│   ├── ui/
+│   │   ├── button.tsx
+│   │   └── input.tsx
+├── contexts/
+│   └── AuthContext.tsx
+├── pages/
+│   ├── AddProductPage.tsx
+│   ├── CartPage.tsx
+│   ├── CheckoutPage.tsx
+│   ├── LoginPage.tsx
+│   ├── ProductsPage.tsx
+│   ├── RegisterPage.tsx
+│   └── WelcomePage.tsx
+├── App.tsx
+└── main.tsx
+```
+
+## Observações
+
+- O projeto utiliza LocalStorage para armazenar o carrinho.
+- A API Serverest pode ter limitação de requisições.
+- O campo de validade do cartão só aceita meses/anos futuros.
+
+## Melhorias Futuras
+
+- Implementar autenticação JWT real
+- Dashboard para administrador
+- Histórico de pedidos
+- Testes automatizados com Cypress
 
 ---
 
-## 🚀 Tecnologias Utilizadas
+Desenvolvido por Marcus Vinicius 🚀
 
-- [React](https://reactjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [React Router DOM](https://reactrouter.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Axios](https://axios-http.com/)
 
----
-
-## 💻 Como rodar o projeto
-
-1. **Clone o repositório:**
-
-```bash
-git clone https://github.com/marcus1708/ecommerce-serverest.git
-cd ecommerce-serverest
