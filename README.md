@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # E-commerce React com Serverest API
+=======
+# 🛒 Ecommerce 
+>>>>>>> refs/remotes/origin/main
 
 Este é um projeto de e-commerce construído com **React**, **TypeScript**, **TailwindCSS** e **ShadCN/UI**, utilizando a API [Serverest](https://serverest.dev/) para simular funcionalidades de um backend.
 
@@ -88,3 +92,22 @@ src/
 Desenvolvido por Marcus Vinicius 🚀
 
 
+<<<<<<< HEAD
+=======
+---
+
+## 💻 Como rodar o projeto
+
+1. **Clone o repositório:**
+
+```bash
+git clone https://github.com/marcus1708/Ecommerce.git
+cd Ecommerce
+```bash
+
+2. **Rode o comando:**
+
+npm install
+
+npm run dev
+>>>>>>> refs/remotes/origin/main
