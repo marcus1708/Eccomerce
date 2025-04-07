@@ -1,4 +1,4 @@
-# 🛒 Ecommerce Serverest
+# 🛒 Ecommerce 
 
 Este é um projeto de e-commerce desenvolvido em **React + TypeScript** utilizando a **API do [Serverest](https://serverest.dev/)**. A aplicação permite:
 
@@ -28,5 +28,11 @@ Este é um projeto de e-commerce desenvolvido em **React + TypeScript** utilizan
 1. **Clone o repositório:**
 
 ```bash
-git clone https://github.com/marcus1708/ecommerce-serverest.git
-cd ecommerce-serverest
+git clone https://github.com/marcus1708/Ecommerce.git
+cd Ecommerce
+
+2. **Rode o comando:**
+
+npm install
+
+npm run dev
