@@ -42,7 +42,7 @@ export default function ProductCreatePage() {
       setMensagem("Produto cadastrado com sucesso!");
       setTimeout(() => navigate("/products"), 1500);
     } catch {
-      setMensagem("Erro ao cadastrar produto.");
+      setMensagem("Já existe produto com esse nome.");
     }
   };
 

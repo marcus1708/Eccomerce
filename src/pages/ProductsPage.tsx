@@ -1,8 +1,11 @@
 // src/pages/ProductsPage.tsx
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { ShoppingCart, Pencil, Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@radix-ui/react-tooltip";
 
 interface Produto {
   _id: string;
@@ -14,111 +17,136 @@ interface Produto {
 }
 
 export default function ProductsPage() {
-  const { token } = useAuth();
   const [produtos, setProdutos] = useState<Produto[]>([]);
-  const [mensagem, setMensagem] = useState("");
-  const [produtoSelecionado, setProdutoSelecionado] = useState<string | null>(null);
+  const [carrinho, setCarrinho] = useState<Produto[]>([]);
+  const [produtoEditando, setProdutoEditando] = useState<string | null>(null);
+  const [nome, setNome] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [preco, setPreco] = useState(0);
+  const [quantidade, setQuantidade] = useState(0);
+  const [busca, setBusca] = useState("");
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function fetchProdutos() {
-      try {
-        const response = await axios.get("https://serverest.dev/produtos");
-        setProdutos(response.data.produtos);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    fetchProdutos();
+    axios.get("https://serverest.dev/produtos").then((res) => {
+      setProdutos(res.data.produtos);
+    });
   }, []);
 
-  const handleAddToCart = (produto: Produto) => {
-    const carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
-    carrinho.push(produto);
-    localStorage.setItem("carrinho", JSON.stringify(carrinho));
-    setMensagem("Produto adicionado ao carrinho!");
-    setTimeout(() => setMensagem(""), 3000);
+  const adicionarAoCarrinho = (produto: Produto) => {
+    const carrinhoAtual = JSON.parse(localStorage.getItem("carrinho") || "[]");
+    const novoCarrinho = [...carrinhoAtual, produto];
+    localStorage.setItem("carrinho", JSON.stringify(novoCarrinho));
+    setCarrinho(novoCarrinho);
   };
 
+  const iniciarEdicao = (produto: Produto) => {
+    setProdutoEditando(produto._id);
+    setNome(produto.nome);
+    setDescricao(produto.descricao);
+    setPreco(produto.preco);
+    setQuantidade(produto.quantidade);
+  };
+
+  const cancelarEdicao = () => {
+    setProdutoEditando(null);
+  };
+
+  const confirmarEdicao = (id: string) => {
+    const produtosAtualizados = produtos.map((p) =>
+      p._id === id ? { ...p, nome, descricao, preco, quantidade } : p
+    );
+    setProdutos(produtosAtualizados);
+    setProdutoEditando(null);
+  };
+
+  const produtosFiltrados = produtos.filter((produto) =>
+    produto.nome.toLowerCase().includes(busca.toLowerCase())
+  );
+
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4 text-center">Lista de Produtos</h1>
+    <div className="min-h-screen bg-gray-100 p-6">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">Lista de Produtos</h1>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button onClick={() => navigate("/cart")} variant="ghost">
+                <ShoppingCart className="h-6 w-6" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Ir para o Carrinho</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
 
-      {mensagem && (
-        <p className="text-green-600 text-center mb-4 font-medium">{mensagem}</p>
-      )}
+      <div className="mb-4 flex items-center gap-2">
+        <Input
+          type="text"
+          placeholder="Buscar produto pelo nome"
+          value={busca}
+          onChange={(e) => setBusca(e.target.value)}
+        />
+        <Button variant="outline">
+          <Search className="h-5 w-5" />
+        </Button>
+      </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {produtos.map((produto) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {produtosFiltrados.map((produto) => (
           <div
             key={produto._id}
-            className="border rounded p-4 shadow hover:shadow-lg cursor-pointer relative"
-            onClick={() =>
-              setProdutoSelecionado(
-                produtoSelecionado === produto._id ? null : produto._id
-              )
-            }
+            className="bg-white p-4 rounded shadow hover:shadow-lg transition duration-300"
           >
-            {produto.imagem && (
-              <img
-                src={produto.imagem}
-                alt={produto.nome}
-                className="w-full h-40 object-cover rounded mb-2"
-              />
-            )}
-            <h2 className="text-lg font-bold mb-1">{produto.nome}</h2>
-            <p className="text-sm text-gray-600 mb-1">{produto.descricao}</p>
-            <p className="text-sm font-semibold text-blue-500 mb-1">
-              R$ {produto.preco.toFixed(2)}
-            </p>
-            <p className="text-sm text-gray-700 mb-2">
-              Quantidade: {produto.quantidade}
-            </p>
-
-            {produtoSelecionado === produto._id && (
-              <div className="absolute inset-0 bg-white bg-opacity-95 flex flex-col items-center justify-center gap-2 p-4 rounded">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate(`/edit-product/${produto._id}`);
-                  }}
-                  className="bg-yellow-400 text-white px-4 py-2 rounded w-full hover:bg-yellow-500"
-                >
-                  Editar Produto
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleAddToCart(produto);
-                    setProdutoSelecionado(null);
-                  }}
-                  className="bg-green-500 text-white px-4 py-2 rounded w-full hover:bg-green-600"
-                >
-                  Adicionar ao Carrinho
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setProdutoSelecionado(null);
-                  }}
-                  className="text-sm text-red-500 hover:underline mt-2"
-                >
-                  Cancelar
-                </button>
-              </div>
+            {produtoEditando === produto._id ? (
+              <>
+                <input
+                  className="w-full p-1 border mb-2"
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                />
+                <input
+                  className="w-full p-1 border mb-2"
+                  value={descricao}
+                  onChange={(e) => setDescricao(e.target.value)}
+                />
+                <input
+                  type="number"
+                  className="w-full p-1 border mb-2"
+                  value={preco}
+                  onChange={(e) => setPreco(parseFloat(e.target.value))}
+                />
+                <input
+                  type="number"
+                  className="w-full p-1 border mb-2"
+                  value={quantidade}
+                  onChange={(e) => setQuantidade(parseInt(e.target.value))}
+                />
+                <div className="flex gap-2">
+                  <Button onClick={() => confirmarEdicao(produto._id)} className="bg-green-500 hover:bg-green-600">Confirmar</Button>
+                  <Button onClick={cancelarEdicao} className="bg-red-500 hover:bg-red-600">Cancelar</Button>
+                </div>
+              </>
+            ) : (
+              <>
+                <h2 className="text-lg font-semibold mb-1">{produto.nome}</h2>
+                <p className="text-sm text-gray-600 mb-1">{produto.descricao}</p>
+                <p className="text-sm font-bold mb-2">R$ {produto.preco.toFixed(2)}</p>
+                <div className="flex gap-2">
+                  <Button onClick={() => iniciarEdicao(produto)} className="bg-yellow-500 hover:bg-yellow-600">
+                    <Pencil className="h-4 w-4 mr-1" /> Editar
+                  </Button>
+                  <Button onClick={() => adicionarAoCarrinho(produto)}>
+                    <ShoppingCart className="h-4 w-4 mr-1" /> Adicionar ao Carrinho
+                  </Button>
+                </div>
+              </>
             )}
           </div>
         ))}
-      </div>
-
-      <div className="mt-6 flex justify-center">
-        <button
-          onClick={() => navigate("/carrinho")}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          Ir para o Carrinho
-        </button>
       </div>
     </div>
   );
