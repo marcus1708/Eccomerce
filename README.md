@@ -1,5 +1,5 @@
 <<<<<<< HEAD
-# E-commerce React com Serverest API
+# E-commerce React com API
 =======
 # 🛒 Ecommerce 
 >>>>>>> refs/remotes/origin/main
