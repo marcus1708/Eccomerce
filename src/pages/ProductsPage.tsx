@@ -1,4 +1,3 @@
-// src/pages/ProductsPage.tsx
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -28,10 +27,16 @@ export default function ProductsPage() {
 
   const navigate = useNavigate();
 
+  // Atualizar o carrinho sempre que o componente for carregado
   useEffect(() => {
     axios.get("https://serverest.dev/produtos").then((res) => {
       setProdutos(res.data.produtos);
     });
+  }, []);
+
+  useEffect(() => {
+    const carrinhoLocal = JSON.parse(localStorage.getItem("carrinho") || "[]");
+    setCarrinho(carrinhoLocal);
   }, []);
 
   const adicionarAoCarrinho = (produto: Produto) => {
@@ -65,15 +70,25 @@ export default function ProductsPage() {
     produto.nome.toLowerCase().includes(busca.toLowerCase())
   );
 
+  const contarItensCarrinho = () => {
+    return carrinho.length;
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Lista de Produtos</h1>
+      <h1 className="text-2xl font-bold text-center w-full">Lista de Produtos</h1>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button onClick={() => navigate("/cart")} variant="ghost">
+              <Button onClick={() => navigate("/cart")} variant="ghost" className="relative">
                 <ShoppingCart className="h-6 w-6" />
+                {/* Badge de quantidade de itens */}
+                {contarItensCarrinho() > 0 && (
+                  <span className="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold rounded-full px-1.5 py-0.5">
+                    {contarItensCarrinho()}
+                  </span>
+                )}
               </Button>
             </TooltipTrigger>
             <TooltipContent>
