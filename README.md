@@ -80,7 +80,7 @@ src/
 - A API Serverest pode ter limitação de requisições.
 - O campo de validade do cartão só aceita meses/anos futuros.
 
-## Melhorias Futuras
+## Melhorias Futuras !!!
 
 - Implementar autenticação JWT real
 - Dashboard para administrador
@@ -89,7 +89,7 @@ src/
 
 ---
 
-Desenvolvido por Marcus Vinicius 🚀
+Desenvolvido por Marcus Vinicius QA 🚀
 
 
 <<<<<<< HEAD
