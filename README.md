@@ -16,7 +16,7 @@ Este é um projeto de e-commerce construído com **React**, **TypeScript**, **Ta
 - Tela de pagamento com validação de data (mês/ano) e animação de sucesso
 - Design responsivo e moderno
 
-## Tecnologias Utilizadas
+## Tecnologias Utilizadas !
 
 - React + Vite
 - TypeScript
