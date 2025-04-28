@@ -13,9 +13,9 @@ export default function WelcomePage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6">
       <div className="bg-white rounded shadow p-8 max-w-md w-full text-center">
-      <h1 className="text-2xl font-bold mb-6">
-  Bem-vindo {usuarioLogado?.nome ? `, ${usuarioLogado.nome}` : ""}!
-</h1>
+        <h1 className="text-2xl font-bold mb-6">
+          Bem-vindo {usuarioLogado?.nome ? `, ${usuarioLogado.nome}` : ""}!
+        </h1>
 
         <div className="space-y-4">
           <button
@@ -31,16 +31,28 @@ export default function WelcomePage() {
             Listar Usuários
           </button>
           <button
-            onClick={() => navigate("/add-product")}
+            onClick={() => navigate("/add-book")}
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full"
           >
-            Cadastrar Produtos
+            Cadastrar Livros
           </button>
           <button
-            onClick={() => navigate("/products")}
+            onClick={() => navigate("/books")}
             className="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 w-full"
           >
-            Listar Produtos
+            Listar Livros
+          </button>
+          <button
+            onClick={() => navigate("/add-movie")}
+            className="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600 w-full"
+          >
+            Cadastrar Filme
+          </button>
+          <button
+            onClick={() => navigate("/movies")}
+            className="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600 w-full"
+          >
+            Listar Filmes
           </button>
           <button
             onClick={handleLogout}

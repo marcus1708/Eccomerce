@@ -39,11 +39,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [usuarioLogado]);
 
   const login = async (email: string, password: string) => {
-    const response = await axios.post("https://serverest.dev/login", {
+    const response = await axios.post("http://localhost:3000/users/login", {
       email,
-      password,
+      senha: password, // Ajuste para o campo esperado pela API
     });
-    setToken(response.data.authorization);
+    setToken(response.data.token);
     setUsuarioLogado({ nome: response.data.nome, email });
   };
 

@@ -1,64 +1,91 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
+import Login from "./pages/Login";
 import RegisterPage from "./pages/RegisterPage";
-import ProductsPage from "./pages/ProductsPage";
-import ProtectedRoute from "./components/ProtectedRoute";
-import ProductCreatePage from "./pages/ProductCreatePage";
-import CartPage from "./pages/CartPage";
-import CheckoutPage from "./pages/CheckoutPage";
-import AddProductPage from "./pages/AddProductPage";
+import Carr from "./pages/Carr";
 import WelcomePage from "./pages/WelcomePage";
-import ListUsersPage from "./pages/ListUsersPage";
-
-
+import Listar_User from "./pages/Listar_User";
+import CadLivros from "./pages/Cad_Livros";
+import BookListPage from "./pages/Listar_Livros";
+import ListarFilmes from "./pages/Listar_Filmes"; // Importação da página Listar_Filmes
+import ProtectedRoute from "./components/ProtectedRoute";
+import CadFilmes from "./pages/Cad_Filme";
 
 function App() {
   return (
     <Router>
       <Routes>
-      <Route path="/carrinho" element={<CartPage />} />
-      <Route path="/products/create" element={
-         <ProtectedRoute>
-         <ProductCreatePage />
-         </ProtectedRoute>}
-         />
-         <Route
-  path="/usuarios"
-  element={
-    <ProtectedRoute>
-      <ListUsersPage />
-    </ProtectedRoute>
-  }
-/>
-         <Route
-  path="/welcome"
-  element={
-    <ProtectedRoute>
-      <WelcomePage />
-    </ProtectedRoute>
-  }
-/>
-        <Route path="/" element={<LoginPage />} />
+        {/* Rota de Login */}
+        <Route path="/" element={<Login />} />
+
+        {/* Rota de Cadastro de Usuário */}
         <Route path="/register" element={<RegisterPage />} />
+
+        {/* Rota protegida para a página de boas-vindas */}
         <Route
-  path="/add-product"
-  element={
-    <ProtectedRoute>
-      <AddProductPage />
-    </ProtectedRoute>
-  }
-/>
-        <Route
-          path="/products"
+          path="/welcome"
           element={
             <ProtectedRoute>
-              <ProductsPage />
+              <WelcomePage />
             </ProtectedRoute>
           }
         />
-        <Route path="/cart" element={<ProtectedRoute> <CartPage /> </ProtectedRoute> }
+
+        {/* Rota protegida para listar usuários */}
+        <Route
+          path="/usuarios"
+          element={
+            <ProtectedRoute>
+              <Listar_User />
+            </ProtectedRoute>
+          }
         />
-        <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>}
+
+        {/* Rota protegida para cadastrar livros */}
+        <Route
+          path="/add-book"
+          element={
+            <ProtectedRoute>
+              <CadLivros />
+            </ProtectedRoute>
+          }
+        />
+        {/* Rota protegida para cadastrar filmes */}
+        <Route
+          path="/add-movie"
+          element={
+            <ProtectedRoute>
+              <CadFilmes />
+            </ProtectedRoute>
+          }
+        />
+        {/* Rota protegida para listar livros */}
+        <Route
+          path="/books"
+          element={
+            <ProtectedRoute>
+              <BookListPage />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Rota protegida para listar filmes */}
+        <Route
+          path="/movies"
+          element={
+            <ProtectedRoute>
+              <ListarFilmes />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Rota protegida para o carrinho */}
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute>
+              <Carr />
+            </ProtectedRoute>
+          }
         />
       </Routes>
     </Router>

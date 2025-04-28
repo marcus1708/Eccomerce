@@ -24,17 +24,14 @@ export default function LoginPage() {
       setError("Credenciais inválidas");
     }
   };
-  
-  
-  
+
   return (
-    
-<div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 relative">
-  {showSuccessPopup && (
-    <div className="absolute top-10 bg-green-500 text-white px-6 py-3 rounded shadow-md text-center z-50">
-      Usuário logado com sucesso!
-    </div>
-  )}
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 relative">
+      {showSuccessPopup && (
+        <div className="absolute top-10 bg-green-500 text-white px-6 py-3 rounded shadow-md text-center z-50">
+          Usuário logado com sucesso!
+        </div>
+      )}
       <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow-md w-80">
         <h1 className="text-xl font-bold mb-4 text-center">Login</h1>
         {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
